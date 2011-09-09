@@ -117,9 +117,13 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                 }
                 //get the user - don't bother with auth = googleoauth2 because 
                 //authenticate_user_login() will fail it if it's not 'googleoauth2'
+                //TODO if get_config('auth/googleoauth2', 'simulateotherauths') then need to check:
+                //     1- the auth plugin is enabled and that the
+                //     2- the email was verified by Moodle
                 $user = $DB->get_record('user', array('email' => $useremail, 'deleted' => 0, 'mnethostid' => $CFG->mnet_localhost_id)); 
                 
                 //create the user if it doesn't exist
+                $isnewuser = false;
                 if (empty($user)) {
                     
                     $isnewuser = true;
@@ -139,14 +143,50 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                 
                 } else {
                     $username = $user->username;
+                    //TODO: also check that Moodle email is verified
+                    //TODO2: make this a disable option.
+                    
+                    //if google verified the email, then we can safely trick the authenticate_user_login()
+                    //We need to save the information to rollback to them after
+                    ////TODO:
+                    //we currently need to praise for no fatal error or server crash during the authenticate_user_login() call: 
+                    //if something fail before the rollback to correct values, then
+                    //the user lose access to Moodle with the previous authentication method.
+                    if (get_config('auth/googleoauth2', 'simulateotherauths') and
+                            $user->auth != 'googleoauth2' and 
+                            json_decode($postreturnvalues)->data->verified_email) { 
+                        $correctauth = $user->auth;
+                        $correctpassword = $user->password; //as googleoauth does not ahve local password it
+                                                            //will be deleted by authenticate_user_login().
+                        $user->auth = 'googleoauth2';
+                        $DB->update_record('user', $user);
+                    }
                 }
 
                 //authenticate the user
-                $user = authenticate_user_login($username, null);
-                if ($user) {
+                try {
+                    $authenticateduser = authenticate_user_login($username, null);
+                } catch (Exception $e) {
+                    if (!empty($correctauth) and !empty($correctpassword)) {
+                        //Rollback to correct authentication plugin and password
+                        $user->password = $correctpassword;
+                        $user->auth = $correctauth;
+                        $DB->update_record('user', $user);
+                    }
+                    throw $e;
+                }
+                
+                //Rollback to correct authentication plugin and password
+                if (!empty($correctauth) and !empty($correctpassword)) {
+                    $user->password = $correctpassword;
+                    $user->auth = $correctauth;
+                    $DB->update_record('user', $user);
+                }
+                
+                if ($authenticateduser) {
                                                       
                     //try to complete the user information has much as we can in case of new one
-                    if (!empty($isnewuser)) {
+                    if ($isnewuser) {
                         //retrieve more information
                         $userinfo = $curl->get('https://www.googleapis.com/oauth2/v1/userinfo', $params);
                         $userinfo = json_decode($userinfo); //email, id, name, verified_email, given_name, family_name, link, gender, locale
@@ -160,7 +200,7 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
 
                         //create the user
                         $newuser = array(
-                                'id' => $user->id,
+                                'id' => $authenticateduser->id,
                                 'email' => $useremail,
                                 'auth' => 'googleoauth2');
                         if (!empty($userinfo->given_name)) {
@@ -177,11 +217,11 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                             //TODO: check that countryCode does match the Moodle country code
                             $newuser['country'] = $locationdata->countryCode;
                             $newuser['city'] = $locationdata->cityName;
-                        }
+                        }                     
                         $DB->update_record('user', $newuser);
                     }
                     
-                    complete_user_login($user);
+                    complete_user_login($authenticateduser);
                     
                     // Redirection
                     if (user_not_fully_set_up($USER)) {
@@ -230,6 +270,9 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
         }
         if (!isset($config->googleuserprefix)) {
             $config->googleuserprefix = 'google_user_';
+        }
+        if (!isset ($config->simulateotherauths)) {
+            $config->simulateotherauths = false;
         }
 
         echo '<table cellspacing="0" cellpadding="5" border="0">
@@ -338,6 +381,28 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
 
         echo '</td></tr>';
         
+        // Simulate other authentication plugins
+        
+        echo '<tr>
+                <td align="right"><label for="simulateotherauths">';
+
+        print_string('auth_simulateotherauths_key', 'auth_googleoauth2');
+
+        echo '</label></td><td>';
+
+        echo html_writer::checkbox('simulateotherauths', $config->simulateotherauths, 
+                $config->simulateotherauths, '', array());
+
+        if (isset($err["simulateotherauths"])) {
+            echo $OUTPUT->error_text($err["simulateotherauths"]);
+        }
+
+        echo '</td><td>';
+
+        print_string('auth_simulateotherauths', 'auth_googleoauth2') ;
+
+        echo '</td></tr>';
+        
         
         // Block field options
 
@@ -363,12 +428,16 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
         if (!isset ($config->googleuserprefix)) {
             $config->googleuserprefix = 'google_user_';
         }
+        if (!isset ($config->simulateotherauths)) {
+            $config->simulateotherauths = false;
+        }
 
         // save settings
         set_config('googleclientid', $config->googleclientid, 'auth/googleoauth2');
         set_config('googleclientsecret', $config->googleclientsecret, 'auth/googleoauth2');
         set_config('googleipinfodbkey', $config->googleipinfodbkey, 'auth/googleoauth2');
         set_config('googleuserprefix', $config->googleuserprefix, 'auth/googleoauth2');
+        set_config('simulateotherauths', $config->simulateotherauths, 'auth/googleoauth2');
 
         return true;
     }

@@ -35,5 +35,7 @@ $string['auth_googleuserprefix_key'] = 'Username prefix';
 $string['auth_googleoauth2description'] = 'Simple and straight forward Oauth2 Google authentication. 
     If the user email doesn\'t exists, then the authentiation plugin creates a new user with username "User_XXX", XXX being incremented every time.';
 $string['auth_googlesettings'] = 'Settings';
+$string['auth_simulateotherauths'] = 'If selected then a user with a verified email by Google will login even though he previously registered the same email with a different authenticaiton plugin.';
+$string['auth_simulateotherauths_key'] = 'Simulate other plugins';
 $string['couldnotgetgoogleaccesstoken'] = 'Google sent us a communication error. Please try to sign-in again.';
 $string['signinwithgoogleaccount'] = 'Sign in with your Google account:';
