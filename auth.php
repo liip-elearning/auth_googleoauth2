@@ -108,6 +108,10 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
     public function loginpage_hook() {
         global $USER, $SESSION, $CFG, $DB;
 
+        // LIIPEDU CODE //
+        $useremail = '';
+        // END LIIPEDU CODE //
+
         // Check the Google authorization code.
         $authorizationcode = optional_param('code', '', PARAM_TEXT);
         if (!empty($authorizationcode)) {
@@ -174,6 +178,12 @@ class auth_plugin_googleoauth2 extends auth_plugin_base {
                     // Failed to get user details.
                     throw new moodle_exception('faileduserdetails', 'auth_googleoauth2');
                 }
+
+                // LIIPEDU CODE //
+                if (!preg_match('/@liip\.ch$/', $useremail)) {
+                    throw new moodle_exception('access denied', 'auth_googleoauth2');
+                }
+                // END LIIPEDU CODE //
 
                 // Throw an error if the email address is not verified.
                 if (!$verified) {
