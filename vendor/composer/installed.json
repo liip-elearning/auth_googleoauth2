@@ -1,48 +1,34 @@
 [
     {
-        "name": "symfony/event-dispatcher",
-        "version": "v2.8.7",
-        "version_normalized": "2.8.7.0",
+        "name": "depotwarehouse/oauth2-bnet",
+        "version": "3.0.1",
+        "version_normalized": "3.0.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/symfony/event-dispatcher.git",
-            "reference": "2a6b8713f8bdb582058cfda463527f195b066110"
+            "url": "https://github.com/tpavlek/oauth2-bnet.git",
+            "reference": "e958bc7765b953b4068d5c6313aae684ecb87e61"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/2a6b8713f8bdb582058cfda463527f195b066110",
-            "reference": "2a6b8713f8bdb582058cfda463527f195b066110",
+            "url": "https://api.github.com/repos/tpavlek/oauth2-bnet/zipball/e958bc7765b953b4068d5c6313aae684ecb87e61",
+            "reference": "e958bc7765b953b4068d5c6313aae684ecb87e61",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.3.9"
-        },
-        "require-dev": {
-            "psr/log": "~1.0",
-            "symfony/config": "~2.0,>=2.0.5|~3.0.0",
-            "symfony/dependency-injection": "~2.6|~3.0.0",
-            "symfony/expression-language": "~2.6|~3.0.0",
-            "symfony/stopwatch": "~2.3|~3.0.0"
+            "illuminate/contracts": "~5.0",
+            "league/oauth2-client": "~0.3",
+            "php": ">=5.5.0"
         },
         "suggest": {
-            "symfony/dependency-injection": "",
-            "symfony/http-kernel": ""
+            "illuminate/support": "Laravel integration"
         },
-        "time": "2016-06-06 11:11:27",
+        "time": "2015-05-28T15:50:37+00:00",
         "type": "library",
-        "extra": {
-            "branch-alias": {
-                "dev-master": "2.8-dev"
-            }
-        },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Symfony\\Component\\EventDispatcher\\": ""
-            },
-            "exclude-from-classmap": [
-                "/Tests/"
-            ]
+                "Depotwarehouse\\OAuth2\\Client\\": "src/"
+            }
         },
         "notification-url": "https://packagist.org/downloads/",
         "license": [
@@ -50,16 +36,13 @@
         ],
         "authors": [
             {
-                "name": "Fabien Potencier",
-                "email": "fabien@symfony.com"
-            },
-            {
-                "name": "Symfony Community",
-                "homepage": "https://symfony.com/contributors"
+                "name": "Troy Pavlek",
+                "email": "troy@tpavlek.me",
+                "homepage": "http://tpavlek.me",
+                "role": "Developer"
             }
         ],
-        "description": "Symfony EventDispatcher Component",
-        "homepage": "https://symfony.com"
+        "description": "A Battle.net provider for league/oauth2-client"
     },
     {
         "name": "guzzle/guzzle",
@@ -117,7 +100,7 @@
         "suggest": {
             "guzzlehttp/guzzle": "Guzzle 5 has moved to a new package name. The package you have installed, Guzzle 3, is deprecated."
         },
-        "time": "2015-03-18 18:23:50",
+        "time": "2015-03-18T18:23:50+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
@@ -156,7 +139,54 @@
             "http client",
             "rest",
             "web service"
-        ]
+        ],
+        "abandoned": "guzzlehttp/guzzle"
+    },
+    {
+        "name": "illuminate/contracts",
+        "version": "v5.6.28",
+        "version_normalized": "5.6.28.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/illuminate/contracts.git",
+            "reference": "3dc639feabe0f302f574157a782ede323881a944"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/illuminate/contracts/zipball/3dc639feabe0f302f574157a782ede323881a944",
+            "reference": "3dc639feabe0f302f574157a782ede323881a944",
+            "shasum": ""
+        },
+        "require": {
+            "php": "^7.1.3",
+            "psr/container": "~1.0",
+            "psr/simple-cache": "~1.0"
+        },
+        "time": "2018-05-11T23:38:58+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "5.6-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Illuminate\\Contracts\\": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Taylor Otwell",
+                "email": "taylor@laravel.com"
+            }
+        ],
+        "description": "The Illuminate Contracts package.",
+        "homepage": "https://laravel.com"
     },
     {
         "name": "league/oauth2-client",
@@ -184,7 +214,7 @@
             "satooshi/php-coveralls": "0.6.*",
             "squizlabs/php_codesniffer": "~2.0"
         },
-        "time": "2015-06-20 16:06:31",
+        "time": "2015-06-20T16:06:31+00:00",
         "type": "library",
         "installation-source": "dist",
         "autoload": {
@@ -239,7 +269,7 @@
             "mockery/mockery": "~0.9",
             "phpunit/phpunit": "~4.0"
         },
-        "time": "2015-05-27 17:14:15",
+        "time": "2015-05-27T17:14:15+00:00",
         "type": "library",
         "installation-source": "source",
         "autoload": {
@@ -276,34 +306,34 @@
         }
     },
     {
-        "name": "illuminate/contracts",
-        "version": "v5.2.37",
-        "version_normalized": "5.2.37.0",
+        "name": "psr/container",
+        "version": "1.0.0",
+        "version_normalized": "1.0.0.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/illuminate/contracts.git",
-            "reference": "f4f44d7c6d20404da8dfc655bd3d6dd788dfdce5"
+            "url": "https://github.com/php-fig/container.git",
+            "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/contracts/zipball/f4f44d7c6d20404da8dfc655bd3d6dd788dfdce5",
-            "reference": "f4f44d7c6d20404da8dfc655bd3d6dd788dfdce5",
+            "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+            "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
             "shasum": ""
         },
         "require": {
-            "php": ">=5.5.9"
+            "php": ">=5.3.0"
         },
-        "time": "2016-05-31 21:36:13",
+        "time": "2017-02-14T16:28:37+00:00",
         "type": "library",
         "extra": {
             "branch-alias": {
-                "dev-master": "5.2-dev"
+                "dev-master": "1.0.x-dev"
             }
         },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Illuminate\\Contracts\\": ""
+                "Psr\\Container\\": "src/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -312,42 +342,49 @@
         ],
         "authors": [
             {
-                "name": "Taylor Otwell",
-                "email": "taylorotwell@gmail.com"
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
             }
         ],
-        "description": "The Illuminate Contracts package.",
-        "homepage": "http://laravel.com"
+        "description": "Common Container Interface (PHP FIG PSR-11)",
+        "homepage": "https://github.com/php-fig/container",
+        "keywords": [
+            "PSR-11",
+            "container",
+            "container-interface",
+            "container-interop",
+            "psr"
+        ]
     },
     {
-        "name": "depotwarehouse/oauth2-bnet",
-        "version": "3.0.1",
-        "version_normalized": "3.0.1.0",
+        "name": "psr/simple-cache",
+        "version": "1.0.1",
+        "version_normalized": "1.0.1.0",
         "source": {
             "type": "git",
-            "url": "https://github.com/tpavlek/oauth2-bnet.git",
-            "reference": "e958bc7765b953b4068d5c6313aae684ecb87e61"
+            "url": "https://github.com/php-fig/simple-cache.git",
+            "reference": "408d5eafb83c57f6365a3ca330ff23aa4a5fa39b"
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/tpavlek/oauth2-bnet/zipball/e958bc7765b953b4068d5c6313aae684ecb87e61",
-            "reference": "e958bc7765b953b4068d5c6313aae684ecb87e61",
+            "url": "https://api.github.com/repos/php-fig/simple-cache/zipball/408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
+            "reference": "408d5eafb83c57f6365a3ca330ff23aa4a5fa39b",
             "shasum": ""
         },
         "require": {
-            "illuminate/contracts": "~5.0",
-            "league/oauth2-client": "~0.3",
-            "php": ">=5.5.0"
+            "php": ">=5.3.0"
         },
-        "suggest": {
-            "illuminate/support": "Laravel integration"
-        },
-        "time": "2015-05-28 15:50:37",
+        "time": "2017-10-23T01:57:42+00:00",
         "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "1.0.x-dev"
+            }
+        },
         "installation-source": "dist",
         "autoload": {
             "psr-4": {
-                "Depotwarehouse\\OAuth2\\Client\\": "src/"
+                "Psr\\SimpleCache\\": "src/"
             }
         },
         "notification-url": "https://packagist.org/downloads/",
@@ -356,12 +393,79 @@
         ],
         "authors": [
             {
-                "name": "Troy Pavlek",
-                "email": "troy@tpavlek.me",
-                "homepage": "http://tpavlek.me",
-                "role": "Developer"
+                "name": "PHP-FIG",
+                "homepage": "http://www.php-fig.org/"
             }
         ],
-        "description": "A Battle.net provider for league/oauth2-client"
+        "description": "Common interfaces for simple caching",
+        "keywords": [
+            "cache",
+            "caching",
+            "psr",
+            "psr-16",
+            "simple-cache"
+        ]
+    },
+    {
+        "name": "symfony/event-dispatcher",
+        "version": "v2.8.43",
+        "version_normalized": "2.8.43.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/symfony/event-dispatcher.git",
+            "reference": "9b69aad7d4c086dc94ebade2d5eb9145da5dac8c"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/9b69aad7d4c086dc94ebade2d5eb9145da5dac8c",
+            "reference": "9b69aad7d4c086dc94ebade2d5eb9145da5dac8c",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.9"
+        },
+        "require-dev": {
+            "psr/log": "~1.0",
+            "symfony/config": "^2.0.5|~3.0.0",
+            "symfony/dependency-injection": "~2.6|~3.0.0",
+            "symfony/expression-language": "~2.6|~3.0.0",
+            "symfony/stopwatch": "~2.3|~3.0.0"
+        },
+        "suggest": {
+            "symfony/dependency-injection": "",
+            "symfony/http-kernel": ""
+        },
+        "time": "2018-04-06T07:35:03+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.8-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Symfony\\Component\\EventDispatcher\\": ""
+            },
+            "exclude-from-classmap": [
+                "/Tests/"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Fabien Potencier",
+                "email": "fabien@symfony.com"
+            },
+            {
+                "name": "Symfony Community",
+                "homepage": "https://symfony.com/contributors"
+            }
+        ],
+        "description": "Symfony EventDispatcher Component",
+        "homepage": "https://symfony.com"
     }
 ]

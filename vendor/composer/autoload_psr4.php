@@ -7,6 +7,8 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Symfony\\Component\\EventDispatcher\\' => array($vendorDir . '/symfony/event-dispatcher'),
+    'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
+    'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
     'Pixelfear\\OAuth2\\Client\\' => array($vendorDir . '/pixelfear/oauth2-dropbox/src'),
     'League\\OAuth2\\Client\\' => array($vendorDir . '/league/oauth2-client/src'),
     'Illuminate\\Contracts\\' => array($vendorDir . '/illuminate/contracts'),

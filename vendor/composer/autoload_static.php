@@ -13,6 +13,8 @@ class ComposerStaticInit87e424f6db77641b4f49e10944627c2a
         ),
         'P' => 
         array (
+            'Psr\\SimpleCache\\' => 16,
+            'Psr\\Container\\' => 14,
             'Pixelfear\\OAuth2\\Client\\' => 24,
         ),
         'L' => 
@@ -33,6 +35,14 @@ class ComposerStaticInit87e424f6db77641b4f49e10944627c2a
         'Symfony\\Component\\EventDispatcher\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/event-dispatcher',
+        ),
+        'Psr\\SimpleCache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/simple-cache/src',
+        ),
+        'Psr\\Container\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/container/src',
         ),
         'Pixelfear\\OAuth2\\Client\\' => 
         array (
